@@ -1,0 +1,403 @@
+ <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذكرياتنا 2026</title>
+    <style>
+    /* ❄️ إعدادات التلج */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    font-size: 14px;
+    animation: snowFall linear infinite;
+    pointer-events: none;
+    z-index: 1;       /* 👈 ورا كل المحتوى */
+    opacity: 0.85;
+}
+
+/* ❄️ تلج أبيض */
+.snowflake.white {
+    color: #ffffff;
+}
+
+/* 🌸 تلج بينك */
+.snowflake.pink {
+    color: #FFB6C1;
+}
+
+/* حركة نزول التلج */
+@keyframes snowFall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* 📌 نخلي المحتوى فوق التلج */
+.container {
+    position: relative;
+    z-index: 10;
+}
+
+.media-item,
+.folder,
+.final-card,
+.login-box {
+    position: relative;
+    z-index: 20;
+}
+
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #333;
+            --accent-color: #d81b60;
+        }
+
+        body {
+            margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-color);
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container {
+            width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box;
+
+            min-height: 100vh;
+        }
+
+        .screen { display: none; width: 100%; }
+        .active { display: block; animation: fadeIn 1s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .login-box {
+            text-align: center; margin-top: 100px;
+            background: white; padding: 30px; border-radius: 20px;
+        }
+        input[type="password"] {
+            padding: 15px; width: 80%; border-radius: 10px; border: 1px solid #ddd;
+            font-size: 1.2rem; margin: 20px 0; text-align: center;
+        }
+        button {
+            background: var(--accent-color); color: white; border: none; padding: 15px 40px;
+            border-radius: 30px; font-weight: bold; cursor: pointer;
+        }
+
+        .folders-container {
+            display: flex; justify-content: center; margin: 20px 0;
+        }
+
+        /* شكل الألبوم الجديد بالصورة */
+        .folder {
+            width: 45%; background: var(--card-bg); padding: 10px; border-radius: 15px;
+            text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer; transition: 0.3s;
+        }
+        .folder-thumb {
+            width: 100%; height: 100px; border-radius: 10px; overflow: hidden;
+            margin-bottom: 8px; border: 2px solid var(--accent-color);
+        }
+        .folder-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+        .images-grid { display: none; margin-top: 20px; border-bottom: 2px solid white; padding-bottom: 20px;}
+
+        .media-item {
+            background: var(--card-bg); border-radius: 15px; margin-bottom: 20px;
+            padding: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .media-item img { width: 100%; border-radius: 10px; display: block; }
+
+        .video-wrapper {
+            width: 100%; aspect-ratio: 1/1; overflow: hidden;
+            border-radius: 10px; background: #000;
+        }
+        .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
+
+        .section-title {
+            text-align: center; font-size: 1.8rem; margin: 30px 0 15px;
+            color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .final-card {
+            background: white; padding: 30px; border-radius: 20px;
+            text-align: center; margin-top: 40px; cursor: pointer; margin-bottom: 50px;
+        }
+
+        .modal {
+            display: none; position: fixed; z-index: 100; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            justify-content: center; align-items: center;
+        }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 80%; text-align: center; position: relative;}
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 25px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="loginScreen" class="screen active login-box">
+            <div style="font-size: 60px;">2026</div>
+            <h2>❤️هديه بدايه السنه  ل اغلي حد عندي❤️</h2>
+            <input type="password" id="passInput" placeholder="اكتبي الباسورد">
+            <br>
+            <button onclick="checkPass()">افتحي الهدية 🎀</button>
+        </div>
+
+        <div id="mainContent" class="screen">
+
+            <h1 class="section-title">كل ذكرايتنا الي عمري م هنسها و هتفضل جوا قلبي </h1>
+            <div class="folders-container">
+                <div class="folder" onclick="toggleFolder('folder1')">
+                    <div class="folder-thumb"><img src="cover1.jpg"></div>
+                    <p>❤️احلي واغلي صور ل اجمل حد ف حياتي </p>
+                </div>
+
+            </div>
+
+            <div id="folder1" class="images-grid">
+              <div class="media-item"><img src="rs1.jpg"></div>
+<div class="media-item"><img src="rs2.jpg"></div>
+<div class="media-item"><img src="rs3.jpg"></div>
+<div class="media-item"><img src="rs4.jpg"></div>
+<div class="media-item"><img src="rs5.jpg"></div>
+<div class="media-item"><img src="rs6.jpg"></div>
+<div class="media-item"><img src="rs7.jpg"></div>
+<div class="media-item"><img src="rs8.jpg"></div>
+<div class="media-item"><img src="rs9.jpg"></div>
+<div class="media-item"><img src="rs10.jpg"></div>
+<div class="media-item"><img src="rs11.jpg"></div>
+<div class="media-item"><img src="rs12.jpg"></div>
+<div class="media-item"><img src="rs13.jpg"></div>
+<div class="media-item"><img src="rs14.jpg"></div>
+<div class="media-item"><img src="rs15.jpg"></div>
+<div class="media-item"><img src="rs16.jpg"></div>
+<div class="media-item"><img src="rs17.jpg"></div>
+<div class="media-item"><img src="rs18.jpg"></div>
+<div class="media-item"><img src="rs19.jpg"></div>
+<div class="media-item"><img src="rs20.jpg"></div>
+<div class="media-item"><img src="rs21.jpg"></div>
+<div class="media-item"><img src="rs22.jpg"></div>
+<div class="media-item"><img src="rs23.jpg"></div>
+<div class="media-item"><img src="rs24.jpg"></div>
+<div class="media-item"><img src="rs25.jpg"></div>
+<div class="media-item"><img src="rs26.jpg"></div>
+<div class="media-item"><img src="rs27.jpg"></div>
+<div class="media-item"><img src="rs28.jpg"></div>
+<div class="media-item"><img src="rs29.jpg"></div>
+<div class="media-item"><img src="rs30.jpg"></div>
+<div class="media-item"><img src="rs31.jpg"></div>
+<div class="media-item"><img src="rs32.jpg"></div>
+<div class="media-item"><img src="rs33.jpg"></div>
+<div class="media-item"><img src="rs34.jpg"></div>
+<div class="media-item"><img src="rs35.jpg"></div>
+<div class="media-item"><img src="rs36.jpg"></div>
+<div class="media-item"><img src="rs37.jpg"></div>
+<div class="media-item"><img src="rs38.jpg"></div>
+<div class="media-item"><img src="rs39.jpg"></div>
+<div class="media-item"><img src="rs40.jpg"></div>
+<div class="media-item"><img src="rs41.jpg"></div>
+<div class="media-item"><img src="rs42.jpg"></div>
+<div class="media-item"><img src="rs43.jpg"></div>
+<div class="media-item"><img src="rs44.jpg"></div>
+<div class="media-item"><img src="rs45.jpg"></div>
+<div class="media-item"><img src="rs46.jpg"></div>
+<div class="media-item"><img src="rs47.jpg"></div>
+<div class="media-item"><img src="rs48.jpg"></div>
+<div class="media-item"><img src="rs49.jpg"></div>
+<div class="media-item"><img src="rs50.jpg"></div>
+
+<div class="media-item"><img src="rs (1).jpeg"></div>
+<div class="media-item"><img src="rs (2).jpeg"></div>
+<div class="media-item"><img src="rs (3).jpeg"></div>
+<div class="media-item"><img src="rs (4).jpeg"></div>
+<div class="media-item"><img src="rs (5).jpeg"></div>
+<div class="media-item"><img src="rs (6).jpeg"></div>
+<div class="media-item"><img src="rs (7).jpeg"></div>
+<div class="media-item"><img src="rs (8).jpeg"></div>
+<div class="media-item"><img src="rs (9).jpeg"></div>
+<div class="media-item"><img src="rs (10).jpeg"></div>
+<div class="media-item"><img src="rs (11).jpeg"></div>
+<div class="media-item"><img src="rs (12).jpeg"></div>
+<div class="media-item"><img src="rs (13).jpeg"></div>
+<div class="media-item"><img src="rs (14).jpeg"></div>
+<div class="media-item"><img src="rs (15).jpeg"></div>
+<div class="media-item"><img src="rs (16).jpeg"></div>
+<div class="media-item"><img src="rs (17).jpeg"></div>
+<div class="media-item"><img src="rs (18).jpeg"></div>
+<div class="media-item"><img src="rs (19).jpeg"></div>
+<div class="media-item"><img src="rs (20).jpeg"></div>
+<div class="media-item"><img src="rs (21).jpeg"></div>
+<div class="media-item"><img src="rs (22).jpeg"></div>
+<div class="media-item"><img src="rs (23).jpeg"></div>
+<div class="media-item"><img src="rs (24).jpeg"></div>
+<div class="media-item"><img src="rs (25).jpeg"></div>
+<div class="media-item"><img src="rs (26).jpeg"></div>
+<div class="media-item"><img src="rs (27).jpeg"></div>
+<div class="media-item"><img src="rs (28).jpeg"></div>
+<div class="media-item"><img src="rs (29).jpeg"></div>
+<div class="media-item"><img src="rs (30).jpeg"></div>
+<div class="media-item"><img src="rs (31).jpeg"></div>
+<div class="media-item"><img src="rs (32).jpeg"></div>
+<div class="media-item"><img src="rs (33).jpeg"></div>
+<div class="media-item"><img src="rs (34).jpeg"></div>
+<div class="media-item"><img src="rs (35).jpeg"></div>
+<div class="media-item"><img src="rs (36).jpeg"></div>
+<div class="media-item"><img src="rs (37).jpeg"></div>
+<div class="media-item"><img src="rs (38).jpeg"></div>
+<div class="media-item"><img src="rs (39).jpeg"></div>
+<div class="media-item"><img src="rs (40).jpeg"></div>
+<div class="media-item"><img src="rs (41).jpeg"></div>
+<div class="media-item"><img src="rs (42).jpeg"></div>
+<div class="media-item"><img src="rs (43).jpeg"></div>
+<div class="media-item"><img src="rs (44).jpeg"></div>
+<div class="media-item"><img src="rs (45).jpeg"></div>
+<div class="media-item"><img src="rs (46).jpeg"></div>
+<div class="media-item"><img src="rs (47).jpeg"></div>
+<div class="media-item"><img src="rs (48).jpeg"></div>
+<div class="media-item"><img src="rs (49).jpeg"></div>
+<div class="media-item"><img src="rs (50).jpeg"></div>
+<div class="media-item"><img src="rs (51).jpeg"></div>
+
+            </div>
+            <div id="folder2" class="images-grid">
+                <div class="media-item"><img src="f2_img1.jpg"></div>
+                <div class="media-item"><img src="f2_img2.jpg"></div>
+            </div>
+
+            <h1 class="section-title">📸 صورنا الغالية</h1>
+            <div class="media-item"><img src="img1.jpg"></div>
+            <div class="media-item"><img src="img2.jpg"></div>
+            <div class="media-item"><img src="img3.jpg"></div>
+            <div class="media-item"><img src="img4.jpg"></div>
+            <div class="media-item"><img src="img5.jpg"></div>
+            <div class="media-item"><img src="img6.jpg"></div>
+            <div class="media-item"><img src="img7.jpg"></div>
+            <div class="media-item"><img src="img8.jpg"></div>
+            <div class="media-item"><img src="img9.jpg"></div>
+            <div class="media-item"><img src="img10.jpg"></div>
+
+            <h1 class="section-title">🎥 فيديوهاتنا</h1>
+            <div class="media-item">
+                <div class="video-wrapper"><video class="gift-video" controls><source src="vid1.mp4" type="video/mp4"></video></div>
+            </div>
+            <div class="media-item">
+                <div class="video-wrapper"><video class="gift-video" controls><source src="vid2.mp4" type="video/mp4"></video></div>
+            </div>
+            <div class="media-item">
+                <div class="video-wrapper"><video class="gift-video" controls><source src="vid3.mp4" type="video/mp4"></video></div>
+            </div>
+            <div class="media-item">
+                <div class="video-wrapper"><video class="gift-video" controls><source src="vid4.mp4" type="video/mp4"></video></div>
+            </div>
+            <div class="media-item">
+                <div class="video-wrapper"><video class="gift-video" controls><source src="vid5.mp4" type="video/mp4"></video></div>
+            </div>
+
+            <div class="final-card" onclick="openModal()">
+                <h2>رسالة ليكي 💌</h2>
+            </div>
+        </div>
+    </div>
+
+    <div id="msgModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="color: #d81b60;">حبيبتي 💍</h2>
+            <p>انتي أغلى حاجة حصلت في حياتي.. بحبك ❤️</p>
+        </div>
+    </div>
+
+    <script>
+    function createSnow() {
+    const snow = document.createElement("div");
+
+    // نوع التلج (أبيض أو بينك)
+    const types = ["white", "pink"];
+    const type = types[Math.floor(Math.random() * types.length)];
+
+    snow.className = "snowflake " + type;
+    snow.innerHTML = "❄";
+
+    // مكان عشوائي
+    snow.style.left = Math.random() * 100 + "vw";
+
+    // حجم وسرعة عشوائيين
+    snow.style.fontSize = Math.random() * 30 + 30 + "px";
+    snow.style.animationDuration = Math.random() * 5 + 5 + "s";
+
+    document.body.appendChild(snow);
+
+    // إزالة بعد ما يخلص
+    setTimeout(() => {
+        snow.remove();
+    }, 12000);
+}
+
+// تلج مستمر
+setInterval(createSnow, 200);
+
+        const bgMusic = document.getElementById('bgMusic');
+        const vids = document.querySelectorAll('.gift-video');
+
+        function checkPass() {
+            if (document.getElementById('passInput').value === "2026") {
+                bgMusic.play().catch(() => console.log("Music play pending user interaction"));
+                document.getElementById('loginScreen').classList.remove('active');
+                document.getElementById('mainContent').classList.add('active');
+            } else { alert("الباسوردغلط ي كوكايه"); }
+        }
+
+        function toggleFolder(id) {
+            const folder = document.getElementById(id);
+            const display = folder.style.display;
+            document.querySelectorAll('.images-grid').forEach(el => el.style.display = 'none');
+            folder.style.display = (display === "block") ? "none" : "block";
+        }
+
+        vids.forEach(video => {
+      video.addEventListener('play', () => {
+
+          // يقف أي فيديو تاني
+          vids.forEach(v => {
+              if (v !== video) {
+                  v.pause();
+                  v.currentTime = 0;
+              }
+          });
+
+          // يوقف الموسيقى
+          bgMusic.pause();
+      });
+
+      video.addEventListener('pause', checkVideos);
+      video.addEventListener('ended', checkVideos);
+  });
+
+  function checkVideos() {
+      let في_فيديو_شغال = false;
+
+      vids.forEach(v => {
+          if (!v.paused) {
+              في_فيديو_شغال = true;
+          }
+      });
+
+      if (!في_فيديو_شغال) {
+          bgMusic.play();
+      }
+  }
+
+
+        function openModal() { document.getElementById('msgModal').style.display = "flex"; }
+        function closeModal() { document.getElementById('msgModal').style.display = "none"; }
+    </script>
+</body>
+</html>
